@@ -1,15 +1,16 @@
 #!/bin/bash
-# Noise Injector — Pi-hole Analytics Poisoner
-# Creates virtual IPs on the interface and fires DNS queries from each
-# to flood tracking domains with garbage traffic.
-#
-# Configuration — edit these to tune performance
+# Noise Injector — runs until stopped.
+# Takes two domain lists: tracking domains + real domains.
+# Mixes them together and fires queries from 20 fake IPs.
+# Usage: sudo noise-injector.sh <tracking_file> <real_file>
+
+TRACKING_FILE="$1"
+REAL_FILE="$2"
 INTERFACE="wlan0"
-FAKE_SUBNET="192.168.x"
-DOMAIN_COUNT=500
-BURST_SIZE=30
+FAKE_SUBNET="192.168.8"
+BURST_SIZE=40
 MAX_FAKE_IPS=20
-SLEEP_SECS=0.3
+SLEEP_SECS=0.25
 PID_FILE="/var/run/noise-injector.pid"
 STOP_FILE="/var/run/noise-injector.stop"
 
@@ -43,40 +44,22 @@ for ((i=2; i<=MAX_FAKE_IPS+1; i++)); do
     sudo ip addr add ${FAKE_SUBNET}.$i/24 dev $INTERFACE 2>/dev/null
 done
 
-# Load domains from Pi-hole gravity database
-DOMAINS_FILE=$(mktemp)
-sudo sqlite3 /etc/pihole/gravity.db "SELECT domain FROM gravity ORDER BY RANDOM() LIMIT $DOMAIN_COUNT;" > "$DOMAINS_FILE" 2>/dev/null
+# Load domains
+ALL_DOMAINS=()
 
-# Fallback if gravity database is unavailable
-if [ ! -s "$DOMAINS_FILE" ]; then
-    cat > "$DOMAINS_FILE" << 'ENDDOMAINS'
-doubleclick.net
-googleadservices.com
-googlesyndication.com
-google-analytics.com
-googletagmanager.com
-adsrvr.org
-adnxs.com
-rubiconproject.com
-criteo.com
-pubmatic.com
-openx.net
-casalemedia.com
-moatads.com
-adsafeprotected.com
-scorecardresearch.com
-quantserve.com
-exponential.com
-tribalfusion.com
-turn.com
-adhigh.net
-ENDDOMAINS
+if [ -n "$TRACKING_FILE" ] && [ -f "$TRACKING_FILE" ]; then
+    mapfile -t TRACKING < "$TRACKING_FILE"
+    ALL_DOMAINS+=("${TRACKING[@]}")
+    echo "[*] Loaded ${#TRACKING[@]} tracking domains"
 fi
 
-mapfile -t DOMAINS < "$DOMAINS_FILE"
-rm -f "$DOMAINS_FILE"
-echo "[*] Loaded ${#DOMAINS[@]} domains"
-echo "[*] Running until stop signal received..."
+if [ -n "$REAL_FILE" ] && [ -f "$REAL_FILE" ]; then
+    mapfile -t REAL < "$REAL_FILE"
+    ALL_DOMAINS+=("${REAL[@]}")
+    echo "[*] Loaded ${#REAL[@]} real domains"
+fi
+
+echo "[*] Total: ${#ALL_DOMAINS[@]} domains | Running until stop signal..."
 
 TOTAL=0
 BURST_NUM=0
@@ -92,8 +75,10 @@ while true; do
     ((BURST_NUM++))
 
     COUNT=0
-    for DOMAIN in "${DOMAINS[@]}"; do
-        dig +short @127.0.0.1 -b "$SRC_IP" "$DOMAIN" A >/dev/null 2>&1 &
+    for DOMAIN in "${ALL_DOMAINS[@]}"; do
+        # Shuffle: pick a random domain from the list each time
+        RAND_IDX=$(( RANDOM % ${#ALL_DOMAINS[@]} ))
+        dig +short @127.0.0.1 -b "$SRC_IP" "${ALL_DOMAINS[$RAND_IDX]}" A >/dev/null 2>&1 &
         ((COUNT++))
         [ $COUNT -ge $BURST_SIZE ] && break
     done
