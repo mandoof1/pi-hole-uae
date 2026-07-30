@@ -1,5 +1,5 @@
-# UAE-specific ad and tracking domains
-# Last updated: 2026-07-30
+# UAE and Middle East ad, tracking, and telemetry domains
+# Last updated: 2026-07-31
 #
 # Add this list to Pi-hole as a local adlist:
 #   curl -s -X POST "http://localhost/api/lists?type=block" \
@@ -8,26 +8,235 @@
 #     -d '{"address":"file:///etc/pihole/uae-blocklist.txt","comment":"UAE-specific ads & trackers"}'
 #
 # Sources: Community knowledge, DNS query analysis, regional ad network research
+# Covers: UAE, Saudi Arabia, Qatar, Kuwait, Oman, Bahrain, Jordan, Egypt, Levant
 
-# UAE Ad Networks & Servers
+#==============================================================================
+# UAE AD NETWORKS & SERVERS
+#==============================================================================
 ads.ae
 adserver.ae
 tracking.ae-ads.com
 adserver.ae-ads.com
 cdn.ae-ads.com
 banners.ae
+rubyads.com
+serve.rubyads.com
+cdn.rubyads.com
+froggyads.com
+serve.froggyads.com
+cdn.froggyads.com
 
-# UAE Telecom Trackers (Etisalat, du)
+#==============================================================================
+# UAE TELECOM TRACKERS (Etisalat, du, Virgin)
+#==============================================================================
 metrics.etisalat.ae
 tracking.etisalat.ae
 ads.etisalat.ae
 mobileads.etisalat.ae
 analytics.etisalat.ae
+data.etisalat.ae
+telemetry.etisalat.ae
 ads.du.ae
 tracking.du.ae
 analytics.du.ae
+metrics.du.ae
+track.virginmobile.ae
+analytics.virginmobile.ae
 
-# UAE News Sites - Ad Servers
+#==============================================================================
+# GULF TELECOM TRACKERS (STC, Zain, Ooredoo, Omantel, Batelco, Mobily)
+#==============================================================================
+# Saudi Telecom (STC)
+metrics.stc.com.sa
+tracking.stc.com.sa
+analytics.stc.com.sa
+ads.stc.com.sa
+telemetry.stc.com.sa
+analytics.my.stc
+tracking.my.stc
+
+# Zain (Kuwait/Saudi/Bahrain/Jordan/Iraq)
+tracking.zain.com
+analytics.zain.com
+ads.zain.com
+metrics.zain.com
+tracking.zain.com.sa
+analytics.zain.com.sa
+tracking.zain.com.kw
+analytics.zain.com.kw
+tracking.zain.bh
+analytics.zain.bh
+
+# Ooredoo (Qatar/Kuwait/Oman)
+analytics.ooredoo.com
+tracking.ooredoo.com
+ads.ooredoo.com
+metrics.ooredoo.com
+analytics.ooredoo.qa
+tracking.ooredoo.qa
+analytics.ooredoo.kw
+analytics.ooredoo.om
+
+# Omantel (Oman)
+tracking.omantel.om
+analytics.omantel.om
+ads.omantel.om
+metrics.omantel.om
+
+# Batelco (Bahrain)
+ads.batelco.com.bh
+tracking.batelco.com.bh
+analytics.batelco.com.bh
+
+# Mobily (Saudi)
+tracking.mobily.com.sa
+analytics.mobily.com.sa
+ads.mobily.com.sa
+
+#==============================================================================
+# MENA AD NETWORKS & EXCHANGES
+#==============================================================================
+# AdFalcon — major Arabic ad network
+adfalcon.com
+www.adfalcon.com
+ads.adfalcon.com
+serve.adfalcon.com
+track.adfalcon.com
+static.adfalcon.com
+cdn.adfalcon.com
+
+# PropellerAds — popular in the region for popunders/push
+propellerads.com
+www.propellerads.com
+propush.com
+propcounter.com
+pop.propellerads.com
+servetag.com
+ads.propellerads.com
+tr.propellerads.com
+static.propellerads.com
+
+# EvaDav — Israeli/Russian network with heavy ME traffic
+evadav.com
+evadav.net
+evadav.io
+ad.evadav.com
+cdn.evadav.com
+track.evadav.com
+static.evadav.com
+
+# AdCash
+adcash.com
+www.adcash.com
+servedbyadcash.com
+static.adcash.com
+ads.adcash.com
+track.adcash.com
+
+# Adsterra
+adsterra.com
+adsterra.net
+aps.adsterra.com
+cdn.adsterra.net
+serve.adsterra.com
+static.adsterra.com
+
+# ClickAdU — UAE-based ad network
+clickadu.com
+servedbyclickadu.com
+static.clickadu.com
+ads.clickadu.com
+
+# AdMaven
+ad-maven.com
+www.ad-maven.com
+serve.ad-maven.com
+static.ad-maven.com
+cdn.ad-maven.com
+
+# PopAds
+popads.net
+popadscdn.net
+server.popads.net
+static.popads.net
+
+# Media.net — contextual ads by Yahoo/Bing, huge in ME
+media.net
+www.media.net
+ads.media.net
+static.media.net
+ams.media.net
+contextual.media.net
+
+# Revcontent
+revcontent.com
+cdn.revcontent.com
+ads.revcontent.com
+track.revcontent.com
+widget.revcontent.com
+
+# AdSterra — additional
+adsterra.com
+traffic.adsterra.com
+
+# Exoclick / TrafficForce (popular in ME)
+exoclick.com
+ads.exoclick.com
+cdn.exoclick.com
+trafficforce.com
+
+#==============================================================================
+# REGIONAL NEWS & MEDIA AD SERVERS
+#==============================================================================
+# Al Jazeera Media Network (Qatar)
+ajmn.net
+www.ajmn.net
+ads.ajmn.net
+tracking.ajmn.net
+static.ajmn.net
+analytics.aljazeera.net
+ads.aljazeera.net
+track.aljazeera.net
+
+# MBC Group (Saudi/UAE) — mbc.net, shahid.net, alarabiya.net
+ads.mbc.net
+analytics.mbc.net
+track.mbc.net
+static.mbc.net
+ads.alarabiya.net
+analytics.alarabiya.net
+track.alarabiya.net
+ads.shahid.net
+analytics.shahid.net
+tracking.shahid.net
+
+# Sky News Arabia (UAE)
+ads.skynewsarabia.com
+analytics.skynewsarabia.com
+track.skynewsarabia.com
+
+# Rotana Media
+ads.rotana.net
+analytics.rotana.net
+track.rotana.net
+
+# Dubai Media Incorporated
+ads.dmi.ae
+analytics.dmi.ae
+track.dmi.ae
+
+# Saudi Broadcasting Authority
+ads.sba.sa
+analytics.sba.sa
+
+# Additional UAE news ad servers
+ads.alroeya.ae
+analytics.alroeya.ae
+ads.gulftoday.ae
+analytics.gulftoday.ae
+track.gulftoday.ae
+ads.albayan.ae
+banners.albayan.ae
 ads.alkhaleej.ae
 adserver.alkhaleej.ae
 ads.emaratalyoum.com
@@ -40,22 +249,107 @@ ads.gulfnews.com
 stats.gulfnews.com
 track.gulfnews.com
 analytics.gulfnews.com
+ads.thenationalnews.com
+analytics.thenationalnews.com
+tracking.thenationalnews.com
 ads.thenational.ae
 analytics.thenational.ae
 track.thenational.ae
 ads.albayan.ae
 banners.albayan.ae
+ads.alroeya.ae
 
-# UAE Classifieds / E-commerce
+# Saudi news & financial
+ads.argaam.com
+analytics.argaam.com
+track.argaam.com
+ads.aleqt.com
+analytics.aleqt.com
+ads.okaz.com.sa
+analytics.okaz.com.sa
+ads.sabq.org
+analytics.sabq.org
+track.sabq.org
+
+# Egyptian & Levant news
+ads.ahram.org.eg
+analytics.ahram.org.eg
+ads.youm7.com
+analytics.youm7.com
+ads.almasryalyoum.com
+analytics.almasryalyoum.com
+ads.annahar.com
+analytics.annahar.com
+track.annahar.com
+
+#==============================================================================
+# UAE E-COMMERCE, CLASSIFIEDS & SERVICES
+#==============================================================================
+# Noon.com — major ME e-commerce
+ads.noon.com
+analytics.noon.com
+tracking.noon.com
+metrics.noon.com
+pixel.noon.com
+
+# Talabat — food delivery (Kuwait/UAE/ME)
+analytics.talabat.com
+tracking.talabat.com
+ads.talabat.com
+metrics.talabat.com
+pixel.talabat.com
+
+# Careem — ride hailing (UAE)
+analytics.careem.com
+tracking.careem.com
+ads.careem.com
+mobileads.careem.com
+metrics.careem.com
+
+# Anghami — music streaming (Lebanon/UAE)
+ads.anghami.com
+analytics.anghami.com
+track.anghami.com
+pixel.anghami.com
+
+# StarzPlay / OSN — streaming
+analytics.osn.com
+tracking.osn.com
+ads.osn.com
+tracking.starzplay.com
+ads.starzplay.com
+analytics.starzplay.com
+
+# Amazon.ae — tracking
+tracking.amazon.ae
+ads.amazon.ae
+analytics.amazon.ae
+
+# UAE classifieds (existing + expanded)
 analytics.dubizzle.com
 track.dubizzle.com
 ads.dubizzle.com
 pixel.dubizzle.com
+analytics.dubizzle.ae
 analytics.opensooq.com
 ads.opensooq.com
 tracking.opensooq.com
+analytics.propertyfinder.ae
+ads.propertyfinder.ae
+track.propertyfinder.ae
+analytics.bayut.com
+ads.bayut.com
+track.bayut.com
 
-# UAE Business / Jobs
+# UAE deals & group buying
+ads.cobone.com
+analytics.cobone.com
+ads.groupon.ae
+analytics.groupon.ae
+
+#==============================================================================
+# UAE BUSINESS / JOBS (existing + expanded)
+#==============================================================================
 ads.zawya.com
 track.zawya.com
 stats.zawya.com
@@ -63,19 +357,62 @@ ads.arabianbusiness.com
 track.arabianbusiness.com
 track.gulftalent.com
 ads.gulftalent.com
+stats.gulftalent.com
+ads.ameinfo.com
+analytics.ameinfo.com
 
-# Regional Ad Networks (common in MENA)
+#==============================================================================
+# MIDDLE EAST AD TECH & TRACKING INFRASTRUCTURE
+#==============================================================================
+# Regional ad serving
 adhigh.net
 www.adhigh.net
 servedby.adhigh.net
 cdn.adhigh.net
+adman.com
+www.adman.com
+ads.adman.com
+mnet-ad.com
+www.mnet-ad.com
+arabicads.com
+adserver.arabicads.com
+menaadvertising.com
+track.menaadvertising.com
+daleeladvertising.com
+ads.daleeladvertising.com
 
-# Known UAE tracking pixels
+# Mobile ad networks popular in ME
+adcolony.com
+ads.adcolony.com
+tracking.adcolony.com
+cdn.adcolony.com
+inmobi.com
+www.inmobi.com
+ads.inmobi.com
+tracking.inmobi.com
+cdn.inmobi.com
+vungle.com
+ads.vungle.com
+tracking.vungle.com
+applovin.com
+applov.in
+ads.applovin.com
+track.applovin.com
+
+#==============================================================================
+# UAE KNOWN TRACKING PIXELS (existing + expanded)
+#==============================================================================
 pixel.soha.ae
 adserver.soha.ae
 analytics.soha.ae
+pixel.etisalat.ae
+pixel.du.ae
+pixel.noon.com
+pixel.careem.com
 
-# Popular UAE sites ad infrastructure
+#==============================================================================
+# UAE POPULAR SITES AD INFRASTRUCTURE (existing + expanded)
+#==============================================================================
 ads.itp.net
 track.itp.net
 analytics.itp.net
@@ -88,9 +425,49 @@ ads.bayut.com
 analytics.bayut.com
 track.bayut.com
 
-# Middle East ad exchanges
-adman.com
-www.adman.com
-ads.adman.com
-mnet-ad.com
-www.mnet-ad.com
+#==============================================================================
+# UAE GOVERNMENT & SMART CITY TRACKING
+#==============================================================================
+analytics.smartdubai.ae
+track.dubai.ae
+analytics.uaepass.ae
+track.uaepass.ae
+telemetry.dubai.ae
+
+#==============================================================================
+# QATAR-SPECIFIC
+#==============================================================================
+analytics.qatar.qa
+ads.qatar.qa
+tracking.qatar.qa
+track.alkass.net
+analytics.alkass.net
+
+#==============================================================================
+# KUWAIT-SPECIFIC
+#==============================================================================
+analytics.kuwait.kw
+ads.kuwait.kw
+track.q8.com
+analytics.q8.com
+
+#==============================================================================
+# OMAN-SPECIFIC
+#==============================================================================
+analytics.oman.om
+ads.oman.om
+tracking.oman.om
+
+#==============================================================================
+# BAHRAIN-SPECIFIC
+#==============================================================================
+analytics.bahrain.bh
+ads.bahrain.bh
+tracking.bahrain.bh
+
+#==============================================================================
+# JORDAN-SPECIFIC
+#==============================================================================
+ads.jordan.jo
+analytics.jordan.jo
+tracking.jordan.jo

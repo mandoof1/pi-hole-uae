@@ -8,7 +8,7 @@ A complete guide to setting up **Pi-hole** on UAE home/office networks, includin
 
 Global blocklists like StevenBlack and OISD cover the big players (Google, Facebook, etc.), but **local UAE ad networks, telecom trackers (Etisalat/du), and regional ad exchanges** frequently slip through. This repo fills that gap.
 
-**The UAE blocklist targets:**
+**The UAE & Middle East blocklist targets:**
 - UAE telecom ad servers & analytics (Etisalat, du)
 - Regional ad exchanges & networks (Adhigh, Adman, Mnet)
 - UAE news & media ad infrastructure (Gulf News, Khaleej Times, The National, Al Khaleej, Al Bayan, Emirates Al Youm)
@@ -16,8 +16,12 @@ Global blocklists like StevenBlack and OISD cover the big players (Google, Faceb
 - UAE business & jobs portals (Zawya, Arabian Business, GulfTalent)
 - ITP & Motory media network trackers
 - General UAE web trackers & analytics pixels
+- Saudi & Gulf telecom trackers (STC, Zain, Mobily, Ooredoo, Omantel, Batelco)
+- Gulf news & media (Al Jazeera, MBC, Al Arabiya, Rotana, Sky News Arabia)
+- Regional e-commerce & services (Noon, Talabat, Careem, Anghami, Shahid)
+- Major MENA ad networks & exchanges (AdFalcon, PropellerAds, EvaDav, AdCash, Adsterra)
 
-**Combined with the recommended base lists, you block 430,000+ domains — covering global + local threats.**
+> **Combined with the recommended base lists, you block 430,000+ domains — covering global + regional threats across the entire Gulf and Levant.**
 
 ---
 
