@@ -49,23 +49,29 @@ sudo PIHOLE_INTERFACE=wlan0 \
      bash /tmp/pihole-install.sh --unattended
 ```
 
-> **Note:** The `--unattended` flag skips interactive dialogs. You may need to set a **static IP** on your Pi first using your network manager (e.g., `nmcli` on Raspberry Pi OS). If the installer fails due to a dialog blocking, patch the `fresh_install` block or pre-create `/etc/pihole/` before running.
+> **Note:** The `--unattended` flag skips interactive dialogs. If the installer fails due to a dialog blocking, patch the `fresh_install` block or pre-create `/etc/pihole/` before running.
 
-### 2. Set a Static IP
+### 2. Set a Static IP (Critical)
+
+**Without a static IP, a router restart will give your Pi a new address and break everything.** Do this before anything else.
 
 ```bash
-# Find your connection name
+# Find your active WiFi connection name
 nmcli con show --active
 
-# Set static IP (adjust for your subnet)
+# Set static IP (adjust subnet for your network)
 sudo nmcli con mod "your-connection-name" \
      ipv4.method manual \
      ipv4.addresses 192.168.x.58/24 \
      ipv4.gateway 192.168.x.1 \
-     ipv4.dns "1.1.1.1 1.0.0.1"
+     ipv4.dns "127.0.0.1"
 
 sudo nmcli con down "your-connection-name"
+sleep 3
 sudo nmcli con up "your-connection-name"
+
+# Verify
+ip -4 addr show wlan0 | grep inet
 ```
 
 ### 3. Set the Web Admin Password
@@ -74,7 +80,27 @@ sudo nmcli con up "your-connection-name"
 pihole setpassword "your-password"
 ```
 
-### 4. Add Blocklists
+### 4. WiFi Stability — Survive Reboots
+
+**Default Raspberry Pi OS enables WiFi power saving, which kills the connection after idle time.** Disable it so the Pi reconnects reliably after being moved or restarted.
+
+```bash
+# Disable WiFi power saving (persistent across reboots)
+sudo tee /etc/NetworkManager/conf.d/wifi-power-save.conf << 'EOF'
+[connection]
+wifi.powersave = 2
+EOF
+
+# Increase auto-reconnect retries
+sudo nmcli con mod "your-connection-name" connection.autoconnect-retries 5
+
+# Apply
+sudo systemctl restart NetworkManager
+```
+
+Without this, after a router restart or power cycle the Pi may boot faster than the router, fail to connect once, and give up. With these settings it retries 5 times and power management wont cut the link.
+
+### 5. Add Blocklists
 
 Add the base lists via Pi-hole's API:
 
@@ -102,7 +128,7 @@ curl -s -X POST "http://localhost/api/lists?type=block" \
 
 > **Total from these two:** ~432,000+ blocked domains covering global ad networks.
 
-### 5. Add the UAE-Specific Blocklist
+### 6. Add the UAE-Specific Blocklist
 
 Copy the `uae-blocklist.txt` file to your Pi (from this repo), then add it:
 
@@ -117,7 +143,7 @@ curl -s -X POST "http://localhost/api/lists?type=block" \
   -d '{"address":"file:///etc/pihole/uae-blocklist.txt","comment":"UAE-specific ads & trackers"}'
 ```
 
-### 6. Update Gravity
+### 7. Update Gravity
 
 ```bash
 pihole -g
@@ -146,6 +172,18 @@ curl -s -X PATCH "http://localhost/api/config" \
 ```
 
 Restart FTL: `sudo systemctl restart pihole-FTL`
+
+### Router Restart Recovery
+
+If your router gets power-cycled or factory-reset, the router's DHCP will turn back on and Pi-hole's static IP + DHCP will still be configured on the Pi side. To restore after a router restart:
+
+1. **Find the Pi's new IP** — check your router's device list or scan the network with `nmap -sn 192.168.x.0/24`
+2. **Log into the router admin** — go to `http://192.168.x.1` and re-enter the password
+3. **Re-disable router DHCP** — Advanced → Router → DHCP, toggle DHCP server OFF, save
+4. **Verify Pi-hole is serving** — `dig doubleclick.net @<pi-ip>` should return `0.0.0.0`
+5. **Force devices to renew** — reboot them or disconnect/reconnect WiFi. Alternatively run `sudo dhcpcd -n <interface>` or `sudo systemctl restart NetworkManager` on Linux clients
+
+The Pi's static IP and Pi-hole config survive the router restart. Only the router's DHCP setting needs to be flipped back.
 
 ---
 
