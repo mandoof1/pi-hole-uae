@@ -1,0 +1,96 @@
+# UAE-specific ad and tracking domains
+# Last updated: 2026-07-30
+#
+# Add this list to Pi-hole as a local adlist:
+#   curl -s -X POST "http://localhost/api/lists?type=block" \
+#     -H "Content-Type: application/json" \
+#     -H "X-FTL-SID: $SID" -H "X-FTL-CSRF: $CSRF" \
+#     -d '{"address":"file:///etc/pihole/uae-blocklist.txt","comment":"UAE-specific ads & trackers"}'
+#
+# Sources: Community knowledge, DNS query analysis, regional ad network research
+
+# UAE Ad Networks & Servers
+ads.ae
+adserver.ae
+tracking.ae-ads.com
+adserver.ae-ads.com
+cdn.ae-ads.com
+banners.ae
+
+# UAE Telecom Trackers (Etisalat, du)
+metrics.etisalat.ae
+tracking.etisalat.ae
+ads.etisalat.ae
+mobileads.etisalat.ae
+analytics.etisalat.ae
+ads.du.ae
+tracking.du.ae
+analytics.du.ae
+
+# UAE News Sites - Ad Servers
+ads.alkhaleej.ae
+adserver.alkhaleej.ae
+ads.emaratalyoum.com
+adserver.emaratalyoum.com
+stats.emaratalyoum.com
+ads.khaleejtimes.com
+ad.khaleejtimes.com
+stats.khaleejtimes.com
+ads.gulfnews.com
+stats.gulfnews.com
+track.gulfnews.com
+analytics.gulfnews.com
+ads.thenational.ae
+analytics.thenational.ae
+track.thenational.ae
+ads.albayan.ae
+banners.albayan.ae
+
+# UAE Classifieds / E-commerce
+analytics.dubizzle.com
+track.dubizzle.com
+ads.dubizzle.com
+pixel.dubizzle.com
+analytics.opensooq.com
+ads.opensooq.com
+tracking.opensooq.com
+
+# UAE Business / Jobs
+ads.zawya.com
+track.zawya.com
+stats.zawya.com
+ads.arabianbusiness.com
+track.arabianbusiness.com
+track.gulftalent.com
+ads.gulftalent.com
+
+# Regional Ad Networks (common in MENA)
+adhigh.net
+www.adhigh.net
+servedby.adhigh.net
+cdn.adhigh.net
+
+# Known UAE tracking pixels
+pixel.soha.ae
+adserver.soha.ae
+analytics.soha.ae
+
+# Popular UAE sites ad infrastructure
+ads.itp.net
+track.itp.net
+analytics.itp.net
+ads.motory.com
+track.motory.com
+ads.propertyfinder.ae
+analytics.propertyfinder.ae
+track.propertyfinder.ae
+ads.bayut.com
+analytics.bayut.com
+track.bayut.com
+
+# Middle East ad exchanges
+adman.com
+www.adman.com
+ads.adman.com
+mnet-ad.com
+www.mnet-ad.com
