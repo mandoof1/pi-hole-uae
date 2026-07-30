@@ -21,7 +21,7 @@ Global blocklists like StevenBlack and OISD cover the big players (Google, Faceb
 - Regional e-commerce & services (Noon, Talabat, Careem, Anghami, Shahid)
 - Major MENA ad networks & exchanges (AdFalcon, PropellerAds, EvaDav, AdCash, Adsterra)
 
-> **Combined with the recommended base lists, you block 430,000+ domains — covering global + regional threats across the entire Gulf and Levant.**
+> **Combined with the recommended base lists, you block 433,000+ domains — covering global + regional threats across the entire Gulf and Levant.**
 
 ---
 
