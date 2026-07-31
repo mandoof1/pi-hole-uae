@@ -249,6 +249,7 @@ ads.gulfnews.com
 stats.gulfnews.com
 track.gulfnews.com
 analytics.gulfnews.com
+prod-analytics.qlitics.com   # Gulf News analytics API, observed in gulfnews.com source (2026-07)
 ads.thenationalnews.com
 analytics.thenationalnews.com
 tracking.thenationalnews.com
@@ -281,6 +282,7 @@ analytics.almasryalyoum.com
 ads.annahar.com
 analytics.annahar.com
 track.annahar.com
+cdn.dataveu.com               # DataVeu analytics — observed on alghad.com (Jordan, 2026-07)
 
 #==============================================================================
 # UAE E-COMMERCE, CLASSIFIEDS & SERVICES
@@ -295,6 +297,7 @@ pixel.noon.com
 # Talabat — food delivery (Kuwait/UAE/ME)
 analytics.talabat.com
 tracking.talabat.com
+track.talabat.com            # observed in talabat.com page source (2026-07)
 ads.talabat.com
 metrics.talabat.com
 pixel.talabat.com
@@ -409,6 +412,10 @@ pixel.etisalat.ae
 pixel.du.ae
 pixel.noon.com
 pixel.careem.com
+# LiveRamp identity/audience pixel — observed on aletihad.ae, arabianbusiness.com,
+# itp.net, timeoutdubai.com, ahlanlive.com, cosmopolitanme.com, esquireme.com,
+# harpersbazaararabia.com (2026-07); bcp.crwdcntrl.net sibling is in StevenBlack, this one slips through
+c.ltmsphrcl.net
 
 #==============================================================================
 # UAE POPULAR SITES AD INFRASTRUCTURE (existing + expanded)
