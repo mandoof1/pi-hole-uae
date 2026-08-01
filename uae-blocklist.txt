@@ -1,5 +1,5 @@
 # UAE and Middle East ad, tracking, and telemetry domains
-# Last updated: 2026-07-31
+# Last updated: 2026-08-01
 #
 # Add this list to Pi-hole as a local adlist:
 #   curl -s -X POST "http://localhost/api/lists?type=block" \
@@ -176,7 +176,6 @@ track.revcontent.com
 widget.revcontent.com
 
 # AdSterra — additional
-adsterra.com
 traffic.adsterra.com
 
 # Exoclick / TrafficForce (popular in ME)
@@ -255,9 +254,6 @@ tracking.thenationalnews.com
 ads.thenational.ae
 analytics.thenational.ae
 track.thenational.ae
-ads.albayan.ae
-banners.albayan.ae
-ads.alroeya.ae
 
 # Saudi news & financial
 ads.argaam.com
@@ -295,6 +291,7 @@ pixel.noon.com
 # Talabat — food delivery (Kuwait/UAE/ME)
 analytics.talabat.com
 tracking.talabat.com
+track.talabat.com
 ads.talabat.com
 metrics.talabat.com
 pixel.talabat.com
@@ -407,7 +404,6 @@ adserver.soha.ae
 analytics.soha.ae
 pixel.etisalat.ae
 pixel.du.ae
-pixel.noon.com
 pixel.careem.com
 
 #==============================================================================
@@ -418,12 +414,6 @@ track.itp.net
 analytics.itp.net
 ads.motory.com
 track.motory.com
-ads.propertyfinder.ae
-analytics.propertyfinder.ae
-track.propertyfinder.ae
-ads.bayut.com
-analytics.bayut.com
-track.bayut.com
 
 #==============================================================================
 # UAE GOVERNMENT & SMART CITY TRACKING
@@ -471,3 +461,22 @@ tracking.bahrain.bh
 ads.jordan.jo
 analytics.jordan.jo
 tracking.jordan.jo
+cdn.dataveu.com
+
+#==============================================================================
+# COMMUNITY-CONTRIBUTED — issue #2 (Adam-ZS, 2026-07-31)
+# Found via live page-source analysis of 80+ UAE/Gulf sites;
+# cross-checked against StevenBlack unified + OISD big — not covered by either.
+# (track.talabat.com added to the Talabat block above — same source)
+#==============================================================================
+# Gulf News analytics API endpoint
+#   found on: gulfnews.com
+prod-analytics.qlitics.com
+
+# LiveRamp identity/audience pixel (sibling bcp.crwdcntrl.net IS in StevenBlack)
+#   found on: aletihad.ae, arabianbusiness.com, itp.net, timeoutdubai.com,
+#             ahlanlive.com, cosmopolitanme.com, esquireme.com, harpersbazaararabia.com
+c.ltmsphrcl.net
+
+# DataVeu analytics CDN (Jordanian news)
+#   found on: alghad.com
